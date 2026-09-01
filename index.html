@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Voice Output</title>
+<meta name="description" content="Reads any text aloud, right from your device.">
+<meta name="theme-color" content="#12141A">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Voice Output">
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <main class="app">
+    <header class="app__header">
+      <div class="app__mark" aria-hidden="true">
+        <span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span>
+      </div>
+      <h1>Voice Output</h1>
+    </header>
+
+    <label class="field" for="text-input">
+      <span class="field__label">Text to read</span>
+      <textarea id="text-input" placeholder="Paste or type anything here…" rows="8"></textarea>
+    </label>
+
+    <div class="controls">
+      <label class="control">
+        <span>Voice</span>
+        <select id="voice-select"></select>
+      </label>
+      <label class="control">
+        <span>Speed <output id="rate-value">1.0×</output></span>
+        <input type="range" id="rate" min="0.5" max="2" step="0.1" value="1">
+      </label>
+      <label class="control">
+        <span>Pitch <output id="pitch-value">1.0</output></span>
+        <input type="range" id="pitch" min="0" max="2" step="0.1" value="1">
+      </label>
+    </div>
+
+    <div class="transport">
+      <button id="btn-speak" class="btn btn--primary">Speak</button>
+      <button id="btn-pause" class="btn" disabled>Pause</button>
+      <button id="btn-stop" class="btn" disabled>Stop</button>
+    </div>
+
+    <p id="status" class="status" role="status" aria-live="polite">Ready.</p>
+  </main>
+
+  <script src="app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').catch(() => {});
+      });
+    }
+  </script>
+</body>
+</html>
