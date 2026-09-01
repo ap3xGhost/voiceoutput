@@ -25,9 +25,17 @@
       <h1>Voice Output</h1>
     </header>
 
+    <label class="field" for="url-input">
+      <span class="field__label">Read from a URL</span>
+      <div class="url-row">
+        <input type="url" id="url-input" placeholder="https://example.com/article" inputmode="url">
+        <button id="btn-fetch" class="btn">Fetch article</button>
+      </div>
+    </label>
+
     <label class="field" for="text-input">
       <span class="field__label">Text to read</span>
-      <textarea id="text-input" placeholder="Paste or type anything here…" rows="8"></textarea>
+      <textarea id="text-input" placeholder="Paste or type anything here, or fetch an article above…" rows="8"></textarea>
     </label>
 
     <div class="controls">

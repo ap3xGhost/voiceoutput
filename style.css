@@ -81,6 +81,26 @@ h1 {
 .field { display: flex; flex-direction: column; gap: 8px; }
 .field__label { font-size: 13px; color: var(--text-muted); }
 
+.url-row { display: flex; gap: 10px; }
+
+.url-row input[type="url"] {
+  flex: 1;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 14px;
+  padding: 10px 12px;
+}
+
+.url-row .btn { flex: none; width: auto; padding: 10px 16px; }
+
+@media (max-width: 480px) {
+  .url-row { flex-direction: column; }
+  .url-row .btn { width: 100%; }
+}
+
 textarea {
   width: 100%;
   resize: vertical;

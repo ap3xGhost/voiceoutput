@@ -11,6 +11,8 @@
   const btnStop = document.getElementById('btn-stop');
   const status = document.getElementById('status');
   const mark = document.querySelector('.app__mark');
+  const urlInput = document.getElementById('url-input');
+  const btnFetch = document.getElementById('btn-fetch');
 
   if (!synth) {
     status.textContent = "This browser doesn't support speech synthesis.";
@@ -90,5 +92,35 @@
     setSpeakingState(false);
     btnPause.textContent = 'Pause';
     status.textContent = 'Stopped.';
+  });
+
+  btnFetch.addEventListener('click', async () => {
+    const url = urlInput.value.trim();
+    if (!url) {
+      status.textContent = 'Paste an article URL first.';
+      return;
+    }
+
+    btnFetch.disabled = true;
+    btnFetch.textContent = 'Fetching…';
+    status.textContent = 'Fetching article…';
+
+    try {
+      const res = await fetch(`/api/extract?url=${encodeURIComponent(url)}`);
+      const data = await res.json();
+
+      if (!res.ok) {
+        status.textContent = data.error || 'Could not fetch that article.';
+        return;
+      }
+
+      textInput.value = data.title ? `${data.title}\n\n${data.text}` : data.text;
+      status.textContent = 'Article loaded — hit Speak to listen.';
+    } catch (err) {
+      status.textContent = 'Something went wrong fetching that page.';
+    } finally {
+      btnFetch.disabled = false;
+      btnFetch.textContent = 'Fetch article';
+    }
   });
 })();
